@@ -46,7 +46,13 @@ class ConfigurationError(ValueError):
 def run_git(*args: str | StrPath) -> str:
     cmd = ("git", *args)
     try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        proc = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd="./content",
+        )
     except subprocess.CalledProcessError as exc:
         if exc.stderr is not None:
             sys.stderr.write(exc.stderr)
